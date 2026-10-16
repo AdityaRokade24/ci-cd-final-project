@@ -1,0 +1,16 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: ci-tasks
+spec:
+  steps:
+    - name: test
+      image: python:3.9-slim
+      script: |
+        nosetests -v
+        # or npm test / jest depending on your project type
+
+    - name: cleanup
+      image: alpine
+      script: |
+        rm -rf build/ dist/ .pytest_cache/
